@@ -1,0 +1,19 @@
+{
+  "name": "random-quote-generator",
+  "version": "1.0.0",
+  "author": "Violet Labs",
+  "description": "Generate Random Quotes for Violet Labs",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start:server": "cd packages/server/ && yarn start:dev",
+    "start:client": "cd packages/client/ && yarn start:dev",
+    "lint": "yarn workspaces run lint"
+  },
+  "dependencies": {
+    "eslint": "^8.51.0",
+    "typescript": "^5.2.2"
+  }
+}
