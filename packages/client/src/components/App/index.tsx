@@ -1,7 +1,7 @@
 import { CharacterList } from '~/components/App/CharacterList';
 import { useEffect, useState } from 'react';
-import { getApiUrl, Logger } from '~/utils';
 import { IQuote } from '@violet/types';
+import { httpService } from '~/utils/httpService';
 
 export const AppRoot = () => {
   const [quoteResponse, setQuoteResponse] = useState<IQuote | undefined>(
@@ -10,22 +10,16 @@ export const AppRoot = () => {
   const [selectedCharacters, setSelectedCharacters] = useState<Set<string>>(
     new Set()
   );
+  const [characterOptions, setCharacterOptions] = useState<string[]>([]);
+  const getCharacterOptions = async () => {
+    const characters = await httpService.getCharacterOptions();
+    setCharacterOptions(characters);
+    setSelectedCharacters(new Set(characters));
+  };
 
   const getQuote = async () => {
-    const selectedCharacterString = Array.from(selectedCharacters)
-      .map((c) => c.toLowerCase())
-      .join(',');
-    const apiUrl = `${getApiUrl()}/quote?characters=${selectedCharacterString}`;
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        Logger.error(`Unable to fetch from ${apiUrl}`);
-      }
-      const quote: IQuote = await response.json();
-      setQuoteResponse(quote);
-    } catch (e) {
-      Logger.error(e);
-    }
+    const quote = await httpService.getQuote(selectedCharacters);
+    setQuoteResponse(quote);
   };
 
   const handleToggleCharacter = (character: string) => {
@@ -41,20 +35,19 @@ export const AppRoot = () => {
 
   useEffect(() => {
     getQuote();
+    getCharacterOptions();
   }, []);
 
   return (
     <>
       <div>
-        <button onClick={getQuote}>Random Quote</button>
-
         <div>
           <p>{quoteResponse?.quote}</p>
           <p>-{quoteResponse?.character}</p>
         </div>
-
         <div>
           <CharacterList
+            characters={characterOptions}
             selectedCharacters={selectedCharacters}
             handleToggleCharacter={handleToggleCharacter}
             getQuote={getQuote}

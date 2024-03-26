@@ -1,33 +1,18 @@
-import { getApiUrl, Logger } from '~/utils';
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent } from 'react';
 
 type Props = {
+  characters: string[];
   selectedCharacters: Set<string>;
   handleToggleCharacter: (character: string) => void;
   getQuote: () => void;
 };
 
 export const CharacterList = ({
+  characters,
   selectedCharacters,
   handleToggleCharacter,
   getQuote,
 }: Props) => {
-  const [characterList, setCharacterList] = useState<string[] | undefined>();
-  const getCharacters = async () => {
-    const apiUrl = getApiUrl();
-    try {
-      const response = await fetch(`${apiUrl}/characters`);
-      const characters = await response.json();
-      setCharacterList(characters);
-    } catch (e) {
-      Logger.error(e);
-    }
-  };
-
-  useEffect(() => {
-    getCharacters();
-  }, []);
-
   const onSubmitForm = (e: FormEvent) => {
     e.preventDefault();
     getQuote();
@@ -37,7 +22,7 @@ export const CharacterList = ({
     <form onSubmit={onSubmitForm}>
       <fieldset>
         <legend>Choose your character</legend>
-        {characterList?.map((c) => (
+        {characters?.map((c) => (
           <div key={c}>
             <input
               type={'checkbox'}
