@@ -1,5 +1,6 @@
-import { FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import { SingleCharacterCheckbox } from '~/components/App/SingleCharacterCheckbox';
+import { AppButton } from '~/components/App/AppButton';
 
 type Props = {
   characters: string[];
@@ -22,7 +23,6 @@ export const CharacterForm = ({
   return (
     <form onSubmit={onSubmitForm}>
       <fieldset>
-        <legend>Choose your character</legend>
         {characters?.map((c) => (
           <SingleCharacterCheckbox
             key={c}
@@ -32,7 +32,12 @@ export const CharacterForm = ({
           />
         ))}
       </fieldset>
-      <button type={'submit'}>Show me a quote</button>
+      <AppButton
+        type={'submit'}
+        className={'bg-sky-blue'}
+        disabled={selectedCharacters.size === 0}
+        title={'Get Quote'}
+      />
     </form>
   );
 };
