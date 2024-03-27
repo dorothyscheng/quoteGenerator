@@ -16,7 +16,7 @@ export const AppButton = ({
   >) => {
   return (
     <button
-      className={`p-2 rounded-md mt-2 disabled:bg-gray-400 disabled:text-gray-700 ${className}`}
+      className={`p-2 rounded-md mt-2 disabled:bg-gray-400 disabled:text-gray-700 shadow-md ${className}`}
       {...props}
     >
       {title}

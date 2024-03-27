@@ -1,23 +1,23 @@
 import React, { FormEvent } from 'react';
-import { SingleCharacterCheckbox } from '~/components/App/SingleCharacterCheckbox';
-import { AppButton } from '~/components/App/AppButton';
+import { SingleCharacterCheckbox } from '~/components/SIngleCharacterCheckbox';
+import { AppButton } from '~/components/AppButton';
 
 type Props = {
   characters: string[];
   selectedCharacters: Set<string>;
-  handleToggleCharacter: (character: string) => void;
-  getQuote: () => void;
+  handleClickCharacter: (character: string) => void;
+  handleSubmitForm: () => void;
 };
 
 export const CharacterForm = ({
   characters,
   selectedCharacters,
-  handleToggleCharacter,
-  getQuote,
+  handleClickCharacter,
+  handleSubmitForm,
 }: Props) => {
   const onSubmitForm = (e: FormEvent) => {
     e.preventDefault();
-    getQuote();
+    handleSubmitForm();
   };
 
   return (
@@ -28,7 +28,7 @@ export const CharacterForm = ({
             key={c}
             character={c}
             isChecked={selectedCharacters.has(c)}
-            handleClick={handleToggleCharacter}
+            handleClick={handleClickCharacter}
           />
         ))}
       </fieldset>
