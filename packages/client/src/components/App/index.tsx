@@ -1,7 +1,8 @@
-import { CharacterList } from '~/components/App/CharacterList';
+import { CharacterForm } from '~/components/App/CharacterForm';
 import { useEffect, useState } from 'react';
 import { IQuote } from '@violet/types';
 import { httpService } from '~/utils/httpService';
+import { DigitalHubLayout } from '~/components/App/DigitalHubLayout';
 
 export const AppRoot = () => {
   const [quoteResponse, setQuoteResponse] = useState<IQuote | undefined>(
@@ -39,21 +40,17 @@ export const AppRoot = () => {
   }, []);
 
   return (
-    <>
+    <DigitalHubLayout>
       <div>
-        <div>
-          <p>{quoteResponse?.quote}</p>
-          <p>-{quoteResponse?.character}</p>
-        </div>
-        <div>
-          <CharacterList
-            characters={characterOptions}
-            selectedCharacters={selectedCharacters}
-            handleToggleCharacter={handleToggleCharacter}
-            getQuote={getQuote}
-          />
-        </div>
+        <p>{quoteResponse?.quote}</p>
+        <p>-{quoteResponse?.character}</p>
       </div>
-    </>
+      <CharacterForm
+        characters={characterOptions}
+        selectedCharacters={selectedCharacters}
+        handleToggleCharacter={handleToggleCharacter}
+        getQuote={getQuote}
+      />
+    </DigitalHubLayout>
   );
 };

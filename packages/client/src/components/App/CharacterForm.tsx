@@ -1,4 +1,5 @@
 import { FormEvent } from 'react';
+import { SingleCharacterCheckbox } from '~/components/App/SingleCharacterCheckbox';
 
 type Props = {
   characters: string[];
@@ -7,7 +8,7 @@ type Props = {
   getQuote: () => void;
 };
 
-export const CharacterList = ({
+export const CharacterForm = ({
   characters,
   selectedCharacters,
   handleToggleCharacter,
@@ -23,17 +24,12 @@ export const CharacterList = ({
       <fieldset>
         <legend>Choose your character</legend>
         {characters?.map((c) => (
-          <div key={c}>
-            <input
-              type={'checkbox'}
-              value={c}
-              id={c}
-              name={'character'}
-              checked={selectedCharacters.has(c)}
-              onChange={() => handleToggleCharacter(c)}
-            />
-            <label htmlFor={c}>{c}</label>
-          </div>
+          <SingleCharacterCheckbox
+            key={c}
+            character={c}
+            isChecked={selectedCharacters.has(c)}
+            handleClick={handleToggleCharacter}
+          />
         ))}
       </fieldset>
       <button type={'submit'}>Show me a quote</button>
