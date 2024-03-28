@@ -2,12 +2,15 @@ type Props = {
   character: string;
   isChecked: boolean;
   handleClick: (character: string) => void;
+  checkboxColor?: string;
 };
 export const SingleCharacterCheckbox = ({
   character,
   isChecked,
   handleClick,
+  checkboxColor,
 }: Props) => {
+  const checkboxColorToUse = checkboxColor ?? 'black';
   return (
     <div
       className={'flex items-center hover:cursor-pointer m-2'}
@@ -26,11 +29,13 @@ export const SingleCharacterCheckbox = ({
         className={'hidden'}
       />
       <div
-        className={
-          'rounded-full h-5 w-5 border-2 border-black flex items-center justify-center m-1'
-        }
+        className={`rounded-full h-5 w-5 border-2 border-${checkboxColorToUse} flex items-center justify-center m-1`}
       >
-        {isChecked && <div className={'rounded-full bg-black h-1/2 w-1/2'} />}
+        {isChecked && (
+          <div
+            className={`rounded-full bg-${checkboxColorToUse} h-1/2 w-1/2`}
+          />
+        )}
       </div>
       <label htmlFor={character} className={'hover:cursor-pointer'}>
         - {character}

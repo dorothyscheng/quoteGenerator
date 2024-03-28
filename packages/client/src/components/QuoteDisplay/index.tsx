@@ -7,19 +7,17 @@ import { CharacterForm } from '~/components/CharacterForm';
 
 type Props = {
   handleChangeDisplay: (displayType: DisplayType) => void;
+  characterOptions: string[];
 };
 
-export const QuoteDisplay = ({ handleChangeDisplay }: Props) => {
+export const QuoteDisplay = ({
+  handleChangeDisplay,
+  characterOptions,
+}: Props) => {
   const [quote, setQuote] = useState<IQuote | undefined>(undefined);
   const [selectedCharacters, setSelectedCharacters] = useState<Set<string>>(
     new Set()
   );
-  const [characterOptions, setCharacterOptions] = useState<string[]>([]);
-  const getCharacterOptions = async () => {
-    const characters = await httpService.getCharacterOptions();
-    setCharacterOptions(characters);
-    setSelectedCharacters(new Set(characters));
-  };
 
   const getQuote = async () => {
     const quote = await httpService.getQuote(selectedCharacters);
@@ -39,11 +37,11 @@ export const QuoteDisplay = ({ handleChangeDisplay }: Props) => {
 
   useEffect(() => {
     getQuote();
-    getCharacterOptions();
-  }, []);
+    setSelectedCharacters(new Set(characterOptions));
+  }, [characterOptions]);
 
   return (
-    <>
+    <div className={'flex flex-col justify-between items-center min-h-[400px]'}>
       <div className={'flex flex-row justify-between p-2 mt-3 w-full'}>
         <div className={'w-1/3'}>
           <CharacterForm
@@ -51,6 +49,7 @@ export const QuoteDisplay = ({ handleChangeDisplay }: Props) => {
             selectedCharacters={selectedCharacters}
             handleClickCharacter={handleToggleCharacter}
             handleSubmitForm={getQuote}
+            buttonTitle={'Get Quote'}
           />
         </div>
         <div className={'w-2/3'}>
@@ -62,6 +61,6 @@ export const QuoteDisplay = ({ handleChangeDisplay }: Props) => {
         title={'Ready to test your knowledge?'}
         onClick={() => handleChangeDisplay(DisplayType.Game)}
       />
-    </>
+    </div>
   );
 };
