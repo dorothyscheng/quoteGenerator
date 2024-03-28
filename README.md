@@ -103,3 +103,29 @@ This will run the app in the development mode. Open http://localhost:4000 to vie
 [React-url]: https://reactjs.org/
 [Nest.js]: https://img.shields.io/badge/NestJs-20232A?style=for-the-badge&logo=nestjs&logoColor=e0234d
 [Nest-url]: https://nestjs.com/
+
+## My Contributions
+
+### Functionality
+
+The app displays a random quote on page load. A list of characters is displayed with selection inputs. 
+Users may select the character, or multiple characters, for whom they want a quote. Clicking a button fetches a new quote from the selected character(s).
+An 'only' button exists for each character to easily fetch a quote from one character.
+
+#### Additional Feature
+
+A trivia game for users to test their knowledge of Office quotes! Users are shown a quote and select the character who said it.
+
+### Styling
+
+The style I implemented is based on the Dunder Mifflin desktop backgrounds shown in The Office.
+
+### Future Work
+
+- Responsive design
+  - The app is not responsive to varying screen sizes. It looks okay on a normal desktop, but reducing the screen size, especially to mobile, does not look good.
+- Accessibility
+  - The black font on blue background is low contrast, but in the Dunder Mifflin background setting, these are the colors used. Another design or modifying the font color would be appropriate to make the text more readable.
+  - Heading structure is not present
+- Feature Enhancements
+  - Adding more features to the game such as a streak, or presenting the user with a prize (a Dundee??) upon a correct answer.
