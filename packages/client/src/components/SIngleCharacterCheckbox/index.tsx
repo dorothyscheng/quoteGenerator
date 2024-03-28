@@ -29,11 +29,13 @@ export const SingleCharacterCheckbox = ({
         className={'hidden'}
       />
       <div
-        className={`rounded-full h-5 w-5 border-2 border-${checkboxColorToUse} flex items-center justify-center m-1`}
+        className={`rounded-full h-5 w-5 border-2 flex items-center justify-center m-1`}
+        style={{ borderColor: checkboxColorToUse }}
       >
         {isChecked && (
           <div
-            className={`rounded-full bg-${checkboxColorToUse} h-1/2 w-1/2`}
+            className={`rounded-full h-1/2 w-1/2`}
+            style={{ backgroundColor: checkboxColorToUse }}
           />
         )}
       </div>
