@@ -45,6 +45,7 @@ export const CharacterForm = ({
   return (
     <form onSubmit={onSubmitForm}>
       <fieldset>
+        <legend className={'hidden'}>Choose a character</legend>
         {characters?.map((c) => (
           <div key={c} className={'flex flex-row items-center'}>
             <SingleCharacterCheckbox
