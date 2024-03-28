@@ -5,11 +5,12 @@ import { AppButton } from '~/components/AppButton';
 type Props = {
   characters: string[];
   selectedCharacters: Set<string> | string;
-  handleClickCharacter: (character: string) => void;
+  handleClickCharacter: (character: string, isOnly: boolean) => void;
   handleSubmitForm: () => void;
   buttonTitle: string;
   checkboxColor?: string;
   disabled?: boolean;
+  hideOnly?: boolean;
 };
 
 export const CharacterForm = ({
@@ -20,6 +21,7 @@ export const CharacterForm = ({
   buttonTitle,
   checkboxColor,
   disabled,
+  hideOnly,
 }: Props) => {
   const onSubmitForm = (e: FormEvent) => {
     e.preventDefault();
@@ -44,13 +46,22 @@ export const CharacterForm = ({
     <form onSubmit={onSubmitForm}>
       <fieldset>
         {characters?.map((c) => (
-          <SingleCharacterCheckbox
-            key={c}
-            character={c}
-            isChecked={getIsChecked(c)}
-            handleClick={handleClickCharacter}
-            checkboxColor={checkboxColor}
-          />
+          <div key={c} className={'flex flex-row items-center'}>
+            <SingleCharacterCheckbox
+              character={c}
+              isChecked={getIsChecked(c)}
+              handleClick={(c) => handleClickCharacter(c, false)}
+              checkboxColor={checkboxColor}
+            />
+            {!hideOnly && (
+              <p
+                className={'text-sm underline hover:cursor-pointer'}
+                onClick={() => handleClickCharacter(c, true)}
+              >
+                only
+              </p>
+            )}
+          </div>
         ))}
       </fieldset>
       <AppButton

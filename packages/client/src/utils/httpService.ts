@@ -24,8 +24,8 @@ class HttpService {
     }
   }
 
-  async getQuote(selectedCharacters: Set<string>): Promise<IQuote | undefined> {
-    const selectedCharacterString = Array.from(selectedCharacters)
+  async getQuote(selectedCharacters: string[]): Promise<IQuote | undefined> {
+    const selectedCharacterString = selectedCharacters
       .map((c) => c.toLowerCase())
       .join(',');
     const apiUrl = `${this.apiUrl}/quote?characters=${selectedCharacterString}`;

@@ -23,7 +23,7 @@ export const GameDisplay = ({
   >(undefined);
 
   const getQuote = async () => {
-    const quote = await httpService.getQuote(new Set<string>());
+    const quote = await httpService.getQuote(characterOptions);
     setQuote(quote);
   };
 
@@ -78,6 +78,7 @@ export const GameDisplay = ({
               buttonTitle={'Submit'}
               checkboxColor={'white'}
               disabled={submitted}
+              hideOnly
             />
           </div>
         </div>

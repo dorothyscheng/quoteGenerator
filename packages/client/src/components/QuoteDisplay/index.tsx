@@ -19,12 +19,17 @@ export const QuoteDisplay = ({
     new Set()
   );
 
-  const getQuote = async () => {
-    const quote = await httpService.getQuote(selectedCharacters);
+  const getQuote = async (characters: string[]) => {
+    const quote = await httpService.getQuote(characters);
     setQuote(quote);
   };
 
-  const handleToggleCharacter = (character: string) => {
+  const handleToggleCharacter = (character: string, isOnly: boolean) => {
+    if (isOnly) {
+      setSelectedCharacters(new Set([character]));
+      getQuote([character]);
+      return;
+    }
     const copiedSet = new Set(selectedCharacters);
     if (copiedSet.has(character)) {
       copiedSet.delete(character);
@@ -36,7 +41,7 @@ export const QuoteDisplay = ({
   };
 
   useEffect(() => {
-    getQuote();
+    getQuote(characterOptions);
     setSelectedCharacters(new Set(characterOptions));
   }, [characterOptions]);
 
@@ -48,7 +53,7 @@ export const QuoteDisplay = ({
             characters={characterOptions}
             selectedCharacters={selectedCharacters}
             handleClickCharacter={handleToggleCharacter}
-            handleSubmitForm={getQuote}
+            handleSubmitForm={() => getQuote(Array.from(selectedCharacters))}
             buttonTitle={'Get Quote'}
           />
         </div>
